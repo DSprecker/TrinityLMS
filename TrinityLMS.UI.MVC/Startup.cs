@@ -1,7 +1,5 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TrinityLMS.UI.MVC.Startup))]
 namespace TrinityLMS.UI.MVC
 {
     public partial class Startup
