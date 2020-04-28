@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5218ce80e7f94d6e9615e15d90e0e469" Name="Diagram1" ZoomLevel="71">
+        <EntityTypeShape EntityType="TrinityLMSModel.CourseCompletions" Width="1.5" PointX="8" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrinityLMSModel.Courses" Width="1.5" PointX="3.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrinityLMSModel.Lessons" Width="1.5" PointX="0.5" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TrinityLMSModel.LessonViews" Width="1.5" PointX="5.5" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="TrinityLMSModel.FK_CourseCompletions_Courses" ManuallyRouted="false" />
+        <AssociationConnector Association="TrinityLMSModel.FK_Lessons_Courses" ManuallyRouted="false" />
+        <AssociationConnector Association="TrinityLMSModel.FK_LessonViews_Lessons" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TrinityLMSModel.AspNetUser" Width="1.5" PointX="3.25" PointY="14.375" />
+        <EntityTypeShape EntityType="TrinityLMSModel.UserDetail" Width="1.5" PointX="1" PointY="9" />
+        <AssociationConnector Association="TrinityLMSModel.FK_AspNetUsers_UserDetails" />
+        <AssociationConnector Association="TrinityLMSModel.FK_CourseCompletions_UserDetails" />
+        <AssociationConnector Association="TrinityLMSModel.FK_LessonViews_UserDetails" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
