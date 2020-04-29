@@ -54,17 +54,17 @@
       <DependentUpon>TrinityLMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="CourseCompletions.cs">
+    <Compile Include="Course.cs">
       <DependentUpon>TrinityLMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Courses.cs">
+    <Compile Include="CourseCompletion.cs">
       <DependentUpon>TrinityLMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DbMetadata\DBMetadata.cs" />
-    <Compile Include="Lessons.cs">
+    <Compile Include="Lesson.cs">
       <DependentUpon>TrinityLMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="LessonViews.cs">
+    <Compile Include="LessonView.cs">
       <DependentUpon>TrinityLMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

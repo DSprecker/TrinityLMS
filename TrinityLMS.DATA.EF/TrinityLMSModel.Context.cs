@@ -25,10 +25,10 @@ namespace TrinityLMS.DATA.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CourseCompletions> CourseCompletions1 { get; set; }
-        public virtual DbSet<Courses> Courses { get; set; }
-        public virtual DbSet<Lessons> Lessons1 { get; set; }
-        public virtual DbSet<LessonViews> LessonViews1 { get; set; }
+        public virtual DbSet<CourseCompletion> CourseCompletions { get; set; }
+        public virtual DbSet<Course> Courses1 { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
+        public virtual DbSet<LessonView> LessonViews { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
     }

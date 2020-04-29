@@ -17,8 +17,8 @@ namespace TrinityLMS.DATA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserDetail()
         {
-            this.CourseCompletions = new HashSet<CourseCompletions>();
-            this.LessonViews = new HashSet<LessonViews>();
+            this.CourseCompletions = new HashSet<CourseCompletion>();
+            this.LessonViews = new HashSet<LessonView>();
         }
     
         public string UserId { get; set; }
@@ -28,8 +28,8 @@ namespace TrinityLMS.DATA.EF
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CourseCompletions> CourseCompletions { get; set; }
+        public virtual ICollection<CourseCompletion> CourseCompletions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LessonViews> LessonViews { get; set; }
+        public virtual ICollection<LessonView> LessonViews { get; set; }
     }
 }

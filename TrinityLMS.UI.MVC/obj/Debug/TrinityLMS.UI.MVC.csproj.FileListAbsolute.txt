@@ -103,3 +103,6 @@ C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src
 C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.UI.MVC\obj\Debug\TrinityLMS.UI.MVC.csproj.CopyComplete
 C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.UI.MVC\obj\Debug\TrinityLMS.UI.MVC.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.UI.MVC\obj\Debug\TrinityLMS.UI.MVC.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.UI.MVC\bin\TrinityLMS.DATA.EF.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.UI.MVC\bin\TrinityLMS.DATA.EF.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.UI.MVC\bin\TrinityLMS.DATA.EF.dll.config

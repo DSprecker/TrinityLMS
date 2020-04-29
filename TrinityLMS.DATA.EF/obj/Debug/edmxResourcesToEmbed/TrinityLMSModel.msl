@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="TrinityLMSModelStoreContainer" CdmEntityContainer="TrinityLMSEntities">
-    <EntitySetMapping Name="CourseCompletions1">
-      <EntityTypeMapping TypeName="TrinityLMSModel.CourseCompletions">
+    <EntitySetMapping Name="CourseCompletions">
+      <EntityTypeMapping TypeName="TrinityLMSModel.CourseCompletion">
         <MappingFragment StoreEntitySet="CourseCompletions">
           <ScalarProperty Name="CourseCompletionId" ColumnName="CourseCompletionId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -11,8 +11,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Courses">
-      <EntityTypeMapping TypeName="TrinityLMSModel.Courses">
+    <EntitySetMapping Name="Courses1">
+      <EntityTypeMapping TypeName="TrinityLMSModel.Course">
         <MappingFragment StoreEntitySet="Courses">
           <ScalarProperty Name="CourseId" ColumnName="CourseId" />
           <ScalarProperty Name="CourseName" ColumnName="CourseName" />
@@ -21,8 +21,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Lessons1">
-      <EntityTypeMapping TypeName="TrinityLMSModel.Lessons">
+    <EntitySetMapping Name="Lessons">
+      <EntityTypeMapping TypeName="TrinityLMSModel.Lesson">
         <MappingFragment StoreEntitySet="Lessons">
           <ScalarProperty Name="LessonId" ColumnName="LessonId" />
           <ScalarProperty Name="LessonTitle" ColumnName="LessonTitle" />
@@ -34,8 +34,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="LessonViews1">
-      <EntityTypeMapping TypeName="TrinityLMSModel.LessonViews">
+    <EntitySetMapping Name="LessonViews">
+      <EntityTypeMapping TypeName="TrinityLMSModel.LessonView">
         <MappingFragment StoreEntitySet="LessonViews">
           <ScalarProperty Name="LessonViewId" ColumnName="LessonViewId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />

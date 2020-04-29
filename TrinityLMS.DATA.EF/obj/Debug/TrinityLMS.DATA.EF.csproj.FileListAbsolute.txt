@@ -10,3 +10,15 @@ C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\Tri
 C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.csproj.CopyComplete
 C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.dll
 C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\bin\Debug\TrinityLMS.DATA.EF.dll.config
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\bin\Debug\TrinityLMS.DATA.EF.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\bin\Debug\TrinityLMS.DATA.EF.pdb
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\bin\Debug\EntityFramework.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\bin\Debug\EntityFramework.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.csprojAssemblyReference.cache
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.csproj.CoreCompileInputs.cache
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.csproj.CopyComplete
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.dll
+C:\Users\student\Documents\Visual Studio 2017\Projects\11_PROJECT\TrinityLMS\src\TrinityLMS.DATA.EF\obj\Debug\TrinityLMS.DATA.EF.pdb

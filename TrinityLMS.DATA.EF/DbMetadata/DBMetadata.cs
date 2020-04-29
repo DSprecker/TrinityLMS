@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace TrinityLMS.DATA.EF.DbMetadata
+namespace TrinityLMS.DATA.EF/*./*DbMetadata*/
 {
     #region UserDetails Metadata
 
@@ -29,6 +29,17 @@ namespace TrinityLMS.DATA.EF.DbMetadata
         public string LastName { get; set; }
 
 
+    }
+
+    [MetadataType(typeof(UserDetailsMetadata))]
+    public partial class UserDetail
+    {
+        [Display(Name = "Student Name")]
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+
+        }
     }
     #endregion
 
