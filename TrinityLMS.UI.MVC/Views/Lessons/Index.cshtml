@@ -1,10 +1,11 @@
 ﻿@model IEnumerable<TrinityLMS.DATA.EF.Lesson>
-
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
+
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -32,32 +33,66 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LessonTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Introduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PdfFilename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cours.CourseName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LessonId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LessonId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LessonId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
 
+        @* Get current userID and if LessonView has lessonId and userID, hide detail button*@
+
+    var userId = User.Identity.GetUserId();
+    var ctx = new TrinityLMS.DATA.EF.TrinityLMSEntities();
+    int lvCount = ctx.LessonViews.Where(x => x.Lesson.LessonId == item.LessonId && x.UserId == userId).Count();
+
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LessonTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Introduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoURL)
+            </td>
+            <td>
+                @if (item.PdfFilename != null)
+                {
+                    <a href="~/Content/images/LessonPdf/@item.PdfFilename">PDF for Lesson</a>
+                }
+                @*<img src="~/Content/images/@item.PdfFilename" style="max-width:100px;" alt="Lesson PDF" title="" />*@
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cours.CourseName)
+            </td>
+
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
+
+                @if (lvCount < 1)
+                 {
+                    @Html.ActionLink("Details", "Details", new { id = item.LessonId })@:|
+                 }
+
+                else
+                {
+                   <span></span>
+                }
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
+            </td>
+
+        </tr>
+    }
 </table>
+
+
+
+
+
+

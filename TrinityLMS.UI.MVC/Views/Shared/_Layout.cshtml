@@ -40,10 +40,7 @@
                                 </form>
                             </div><!-- .header-bar-search -->
                             <div class="header-bar-menu">
-                                <ul class="flex justify-content-center align-items-center py-2 pt-md-0">
-                                    <li><a href="#">Register</a></li>
-                                    <li><a href="#">Login</a></li>
-                                </ul>
+                                @Html.Partial("_LoginPartial")
                             </div><!-- .header-bar-menu -->
                         </div><!-- .col -->
                     </div><!-- .row -->
@@ -54,17 +51,25 @@
                     <div class="row">
                         <div class="col-9 col-lg-3">
                             <div class="site-branding">
-                                <h1 class="site-title"><a href="index.html" rel="home">Ezu<span>ca</span></a></h1>
+                                <h1 class="site-title"><a href="index.html" rel="home">Trinity<span>LMS</span><img src="~/Content/images/triquetra2.png" class="triq"></a></h1>
                             </div><!-- .site-branding -->
                         </div><!-- .col -->
                         <div class="col-3 col-lg-9 flex justify-content-end align-content-center">
                             <nav class="site-navigation flex justify-content-end align-items-center">
                                 <ul class="flex flex-column flex-lg-row justify-content-lg-end align-content-center">
-                                    <li class="current-menu-item"><a href="index.html">Home</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Courses</a></li>
-                                    <li><a href="#">blog</a></li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Contact", "Contact", "Home")"</li>
+                                    <li><a href="@Url.Action("Index","Lessons")">Lessons</a></li>
+                                    <li><a href="@Url.Action("Index","Courses")">Courses</a></li>
+
+                                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <li>@Html.ActionLink("Roles", "Index", "RolesAdmin")</li>
+                                        <li>@Html.ActionLink("Users", "Index", "UsersAdmin")</li>
+                                        
+                                    }
+
                                 </ul>
                                 <div class="hamburger-menu d-lg-none">
                                     <span></span>
@@ -86,7 +91,7 @@
                 <div class="row">
                     <div class="col-12">
                         <header class="entry-header">
-                            <h1>Home</h1>
+                            <h1 class="site-title">@ViewBag.Title</h1>
                         </header><!-- .entry-header -->
                     </div><!-- .col -->
                 </div><!-- .row -->
@@ -107,8 +112,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3">
-                        <div class="foot-about">
-                            <a class="foot-logo" href="#"><img src="~/Content/images/foot-logo.png" alt=""></a>
+                        <div class="foot-about foot-branding">
+                            <h1>Trinity<span>LMS</span><img src="~/Content/images/triquetra.png" class="triq"></h1>
                             <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia dese mollit anim id est laborum. </p>
                             <p class="footer-copyright">
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -186,6 +191,19 @@
     <script type='text/javascript' src='~/Content/js/masonry.pkgd.min.js'></script>
     <script type='text/javascript' src='~/Content/js/jquery.collapsible.min.js'></script>
     <script type='text/javascript' src='~/Content/js/custom.js'></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        //Code to apply the active class to the selected link on the navigation
+        $(function () {
+            $('nav ul li').each(function () {
+                if ($(this).attr('href') == window.location.pathname) {
+                    $(this).addClass('active')
+                }
+            });
+        });
+    </script>
+
 
     @RenderSection("scripts", required: false)
 </body>

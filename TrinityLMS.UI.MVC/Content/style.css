@@ -307,10 +307,7 @@ a:hover, a:active {
     }
 }
 
-.site-navigation ul li a:hover,
-.site-navigation ul li.current-menu-item a {
-    color: #19c880;
-}
+
 
 /*
 # Menu SHopping Cart
@@ -2715,4 +2712,37 @@ p.footer-copyright {
 
 .footer-bar-nav ul li a:hover {
     color: #34d986;
+}
+
+footer 
+{
+    border-top: solid;
+   border-color: rgb(81,107,117);
+
+}
+
+.foot-branding h1 {
+    color: rgb(81,107,117);
+}
+
+    .foot-branding h1 span {
+        color: #19c880;
+    }
+
+.foot-branding img
+{
+    max-width: 30px;
+}
+
+.site-title img{
+    max-width: 30px;
+}
+
+.site-navigation ul li a:hover
+{
+    color: #19c880;
+}
+
+ul li a:active {
+    color: #19c880;
 }
