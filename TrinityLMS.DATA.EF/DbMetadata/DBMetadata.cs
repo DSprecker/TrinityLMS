@@ -34,7 +34,7 @@ namespace TrinityLMS.DATA.EF/*./*DbMetadata*/
     [MetadataType(typeof(UserDetailsMetadata))]
     public partial class UserDetail
     {
-        [Display(Name = "Student Name")]
+        [Display(Name = "Name")]
         public string FullName
         {
             get { return FirstName + " " + LastName; }
@@ -62,6 +62,9 @@ namespace TrinityLMS.DATA.EF/*./*DbMetadata*/
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime DateViewed { get; set; }
     }
+    [MetadataType(typeof(LessonViewsMetadata))]
+    public partial class LessonView { }
+
     #endregion
 
     #region LessonsMetadata
@@ -90,9 +93,12 @@ namespace TrinityLMS.DATA.EF/*./*DbMetadata*/
         [Required(ErrorMessage = "*Required")]
         [Display(Name = "Active?")]
         public bool IsActive { get; set; }
+
+    
     }
 
-
+    [MetadataType(typeof(LessonsMetadata))]
+    public partial class Lesson { }
     #endregion
 
     #region CourseCompletionsMetadata
@@ -107,16 +113,23 @@ namespace TrinityLMS.DATA.EF/*./*DbMetadata*/
         [Required(ErrorMessage = "*Required")]
         public int CourseId { get; set; }
 
+        [Display(Name ="Course Name")]
+        [Required(ErrorMessage = "*Required")]
+        public string CourseName { get; set; }
+
         [Display(Name = "Completion Date")]
         [Required(ErrorMessage = "*Required")]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime DateCompleted { get; set; }
     }
+
+    [MetadataType(typeof(CourseCompletionsMetadata))]
+    public partial class CourseCompletion { }
     #endregion
 
     public class CoursesMetadata
     {
-        [Display(Name = "Completion Date")]
+        [Display(Name = "Course Name")]
         [Required(ErrorMessage = "*Required")]
         [StringLength(200, ErrorMessage = "Value must be 200 characters or less.")]
         public string CourseName { get; set; }
@@ -133,6 +146,10 @@ namespace TrinityLMS.DATA.EF/*./*DbMetadata*/
         public bool IsActive { get; set; }
 
     }
+
+    [MetadataType(typeof(CoursesMetadata))]
+    public partial class Courses1 { }
+
 
 
 

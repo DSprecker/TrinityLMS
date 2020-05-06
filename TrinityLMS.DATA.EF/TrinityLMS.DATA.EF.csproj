@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetRole.cs">
+      <DependentUpon>TrinityLMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="AspNetUser.cs">
       <DependentUpon>TrinityLMSModel.tt</DependentUpon>
     </Compile>

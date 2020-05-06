@@ -6,11 +6,73 @@
 
 <h2>Index</h2>
 
+@if (User.IsInRole("Employee"))
+{
+    int userCompletedCourseCount = 0;
+    int totalCourseCount = ViewBag.TotalCourseCount;
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+    if (ViewBag.UserCompletedCourseCount != null)
+    {
+        userCompletedCourseCount = ViewBag.UserCompletedCourseCount;
+    }
+
+
+    int userCompletedLessonCount = 0;
+    int totalLessonCount = 0;
+    if (ViewBag.UserCompletedLessonCount != null)
+    {
+        userCompletedLessonCount = ViewBag.UserCompletedLessonCount;
+    }
+    if (ViewBag.TotalLessonCount != null)
+    {
+        totalLessonCount = ViewBag.TotalLessonCount;
+    }
+
+    <p>
+        <em>
+
+            <span class="progbarstyle">
+                @string.Format($"You have completed {userCompletedCourseCount} / {totalCourseCount} total courses  (6 required yearly).")
+            </span>
+            @if (userCompletedCourseCount == 0)
+
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedCourseCount == 1)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+
+            <br />
+            <span class="progbarstyle">
+                @string.Format($"You have completed {userCompletedLessonCount} / {totalLessonCount} total lessons.")
+            </span>
+            @if (userCompletedLessonCount == 0)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedLessonCount == 1)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+        </em>
+    </p>
+ }
+  
+@if (User.IsInRole("HR Administrator") || (User.IsInRole("Admin")))
+{
+  <a href="@Url.Action("Create","UserDetails")" class="btn btn-sucess createnew">+Create</a>
+}
+<table class="table table-dark table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LessonTitle)
@@ -18,17 +80,17 @@
         <th>
             @Html.DisplayNameFor(model => model.Introduction)
         </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.VideoURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdfFilename)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.VideoURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PdfFilename)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cours.CourseName)
+            Course Name
         </th>
         <th></th>
     </tr>
@@ -38,9 +100,9 @@
 
         @* Get current userID and if LessonView has lessonId and userID, hide detail button*@
 
-    var userId = User.Identity.GetUserId();
-    var ctx = new TrinityLMS.DATA.EF.TrinityLMSEntities();
-    int lvCount = ctx.LessonViews.Where(x => x.Lesson.LessonId == item.LessonId && x.UserId == userId).Count();
+        var userId = User.Identity.GetUserId();
+        var ctx = new TrinityLMS.DATA.EF.TrinityLMSEntities();
+        int lvCount = ctx.LessonViews.Where(x => x.Lesson.LessonId == item.LessonId && x.UserId == userId).Count();
 
 
 
@@ -51,20 +113,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Introduction)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VideoURL)
-            </td>
-            <td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.VideoURL)
+                </td>*@
+            @*<td>
                 @if (item.PdfFilename != null)
                 {
                     <a href="~/Content/images/LessonPdf/@item.PdfFilename">PDF for Lesson</a>
                 }
                 @*<img src="~/Content/images/@item.PdfFilename" style="max-width:100px;" alt="Lesson PDF" title="" />*@
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
+
+
+            @*< td >
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </ td > *@
+
             <td>
                 @Html.DisplayFor(modelItem => item.Cours.CourseName)
             </td>
@@ -72,19 +136,23 @@
 
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
-
-                @if (lvCount < 1)
-                 {
+                @if (User.IsInRole("HR Administrator") || (User.IsInRole("Admin")))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonId })@:|
                     @Html.ActionLink("Details", "Details", new { id = item.LessonId })@:|
-                 }
+                    @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
+                }
+                @if (User.IsInRole("Employee") && lvCount < 1 || (User.IsInRole("Admin")))
+                {
+                    <a href="@Url.Action("Details", "Lessons", new { id = item.LessonId })" class="gotolesson"><i class="fa fa-arrow-circle-right"></i></a>
+                }
 
                 else
                 {
-                   <span></span>
+                    <span></span>
                 }
 
-                @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
+
             </td>
 
         </tr>

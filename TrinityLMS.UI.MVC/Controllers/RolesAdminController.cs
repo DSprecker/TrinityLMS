@@ -53,6 +53,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Roles/
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Index()
         {
@@ -61,6 +62,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Roles/Details/5
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Details(string id)
         {
@@ -88,6 +90,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Roles/Create
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -116,6 +119,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Roles/Edit/Admin
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -134,6 +138,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // POST: /Roles/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
 
         [ValidateAntiForgeryToken]
@@ -168,6 +173,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // POST: /Roles/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

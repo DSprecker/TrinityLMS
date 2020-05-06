@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using TrinityLMS.DATA.EF;
 
 namespace TrinityLMS.UI.MVC.Controllers
 {
@@ -153,11 +154,24 @@ namespace TrinityLMS.UI.MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
-                    ViewBag.Link = callbackUrl;
-                    return View("DisplayEmail");
+                    //var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");
+                    //ViewBag.Link = callbackUrl;
+                    //return View("DisplayEmail");
+
+                    //Adding UserDetails record & sending user to Log in
+                    UserDetail newUserDeets = new UserDetail();
+                    newUserDeets.UserId = user.Id;//use ASPNet record's PK for our UserDetails PK
+                    newUserDeets.FirstName = model.FirstName;
+                    newUserDeets.LastName = model.LastName;
+                    UserManager.AddToRole(user.Id, "Employee");
+
+                    TrinityLMSEntities db = new TrinityLMSEntities();
+                    db.UserDetails.Add(newUserDeets);
+                    db.SaveChanges();
+
+                    return View("Login");
                 }
                 AddErrors(result);
             }

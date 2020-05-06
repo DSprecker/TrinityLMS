@@ -20,7 +20,29 @@ namespace TrinityLMS.UI.MVC.Controllers
         // GET: Lessons
         public ActionResult Index()
         {
-            var lessons = db.Lessons.Include(l => l.Cours);
+            var lessons = User.IsInRole("Admin") ?
+                 db.Lessons.Include(l => l.Cours).OrderBy(l => l.CourseId)//admin sees all lessons
+                : db.Lessons.Where(l => l.IsActive == true).Include(l => l.Cours);//others just see active courses
+
+            if (User.IsInRole("Employee"))
+            {
+                //get course progress for viewbag
+                string userID = User.Identity.GetUserId();
+                ViewBag.UserCompletedCourseCount = db.CourseCompletions.
+                    Where(cc => cc.UserId == userID).Where(cc => cc.Cours.IsActive == true).Count();
+                ViewBag.TotalCourseCount = db.Courses1.Where(c => c.IsActive == true).Count();
+
+                if (ViewBag.UserCompletedCourseCount == null)
+                {
+                    ViewBag.UserCompletedCourseCount = 0;
+                }
+
+                //custom: also get custom progress for lessons
+                ViewBag.UserCompletedLessonCount = db.LessonViews.
+                    Where(lv => lv.UserId == userID).Where(lv => lv.Lesson.IsActive == true).Count();
+                ViewBag.TotalLessonCount = db.Lessons.Where(l => l.IsActive == true).Count();
+
+            }
             return View(lessons.ToList());
         }
 
@@ -38,25 +60,72 @@ namespace TrinityLMS.UI.MVC.Controllers
             }
 
             #region Lesson Views
-            string currentUserId = User.Identity.GetUserId();
-            UserDetail currentUserDeet = db.UserDetails.Find(currentUserId);
+            UserDetail currentUserId = db.UserDetails.Find(User.Identity.GetUserId());
+            List<LessonView> thisUserViews = db.LessonViews.Where(lv => lv.UserId == currentUserId.UserId).ToList();
+            int viewsForLesson = thisUserViews.Where(lv => lv.LessonId == lesson.LessonId).Count();
 
-            LessonView lessonView = new LessonView();
+            if (viewsForLesson < 1)
+            { 
+
+            LessonView lessonView = new LessonView();//Create a new lesson object when user lands on Details view
             lessonView.LessonId = id;
-            lessonView.UserId = currentUserId;
+            lessonView.UserId = currentUserId.UserId;
             lessonView.DateViewed = DateTime.Now;
 
-            db.LessonViews.Add(lessonView);
-            db.SaveChanges();
+                db.LessonViews.Add(lessonView);//Save the new "Lesson View" object into database 
+                db.SaveChanges();
+
+
+             int lessonPerCourse = db.Lessons.Where(l => l.CourseId == lesson.CourseId).Count();
+             int lessonViewCount = db.LessonViews.Where(l => l.UserId == currentUserId.UserId && l.Lesson.CourseId == lesson.CourseId).Count();
+            
+                
+
+                if (lessonPerCourse == lessonViewCount)
+                {
+                    CourseCompletion courseComplete = new CourseCompletion();
+                    courseComplete.CourseId = lesson.CourseId;
+                    courseComplete.UserId = currentUserId.UserId;
+                    courseComplete.DateCompleted = DateTime.Now;
+                    db.CourseCompletions.Add(courseComplete);
+                    db.SaveChanges();
+
+                    string body = string.Format($"A course has been completed by an employee.<br/> Employee I.D.: {courseComplete.UserId} </br> Course I.D.: {courseComplete.CourseId} </br> Completion Date: {courseComplete.DateCompleted} ");
+
+                    MailMessage msg = new MailMessage("admin@devinsprecker.com", "spreckerd@gmail.com", "Course Completion", body);
+                    msg.IsBodyHtml = true;
+                    msg.Priority = MailPriority.High;
+
+                    SmtpClient client = new SmtpClient("mail.devinsprecker.com");
+                    client.Credentials = new NetworkCredential("admin@devinsprecker.com", "Jesusroseday3");
+
+                    client.Send(msg);
+
+
+                }
+            };
+
+
+                 
+
+               
+            
+
+
+
             #endregion
 
-            int lessonPerCourse = db.Lessons.Where(l => l.CourseId == lesson.CourseId).Count();
-            int lessonViewCount = db.LessonViews.Where(l => l.UserId == currentUserId && l.Lesson.CourseId)
+
+
+            
 
             return View(lesson);
         }
 
+
+
         // GET: Lessons/Create
+        [Authorize(Roles = "Admin,HR Administrator")]
         public ActionResult Create()
         {
             ViewBag.CourseId = new SelectList(db.Courses1, "CourseId", "CourseName");
@@ -107,7 +176,7 @@ namespace TrinityLMS.UI.MVC.Controllers
                 catch (Exception)
                 {
                     ViewBag.Message = "Unable to load selected file.";
-                } 
+                }
                 #endregion
 
                 lesson.PdfFilename = imageName;
@@ -122,6 +191,7 @@ namespace TrinityLMS.UI.MVC.Controllers
         }
 
         // GET: Lessons/Edit/5
+        [Authorize(Roles = "Admin,HR Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -140,32 +210,33 @@ namespace TrinityLMS.UI.MVC.Controllers
         // POST: Lessons/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin,HR Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LessonId,LessonTitle,CourseId,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase uploadPdf)
         {
             if (ModelState.IsValid)
             {
-                
+
 
                 try
                 {
                     if (uploadPdf != null)
                     {
-                       string imageName = uploadPdf.FileName;
+                        string imageName = uploadPdf.FileName;
 
                         string ext = imageName.Substring(imageName.LastIndexOf("."));
 
-                        string goodExt = ".pdf"; 
+                        string goodExt = ".pdf";
 
                         if (goodExt.Contains(ext.ToLower()) && (uploadPdf.ContentLength <= 4194304))
                         {
-                          
-                            imageName = Guid.NewGuid() + ext; 
 
-                 
-                           uploadPdf.SaveAs(
-                                Server.MapPath("~/Content/images/LessonPdf/" + imageName));
+                            imageName = Guid.NewGuid() + ext;
+
+
+                            uploadPdf.SaveAs(
+                                 Server.MapPath("~/Content/images/LessonPdf/" + imageName));
 
                             if (lesson.PdfFilename != null && lesson.PdfFilename != "dummy.pdf")
                             {
@@ -173,10 +244,10 @@ namespace TrinityLMS.UI.MVC.Controllers
                             }
 
                             lesson.PdfFilename = imageName;
-                            
+
                         }
 
-                       
+
                     }
                 }
                 catch (Exception)
@@ -184,7 +255,7 @@ namespace TrinityLMS.UI.MVC.Controllers
                     ViewBag.Message = "Unable to load selected file";
                 }
 
-                
+
 
 
                 db.Entry(lesson).State = EntityState.Modified;
@@ -196,6 +267,7 @@ namespace TrinityLMS.UI.MVC.Controllers
         }
 
         // GET: Lessons/Delete/5
+        [Authorize(Roles = "Admin,HR Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -211,6 +283,8 @@ namespace TrinityLMS.UI.MVC.Controllers
         }
 
         // POST: Lessons/Delete/5
+
+        [Authorize(Roles = "Admin,HR Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

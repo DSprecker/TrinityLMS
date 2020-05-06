@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrinityLMS.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace TrinityLMS.UI.MVC.Controllers
 {
@@ -17,7 +18,17 @@ namespace TrinityLMS.UI.MVC.Controllers
         // GET: Courses
         public ActionResult Index()
         {
-            return View(db.Courses1.ToList());
+            if (User.IsInRole("Employee"))
+            {
+                var employeeIndex = db.Courses1
+                                   .Where(c => c.IsActive);
+                return View(employeeIndex.ToList());
+            }
+
+            else
+            {
+                return View(db.Courses1.ToList());
+            }
         }
 
         // GET: Courses/Details/5
@@ -34,7 +45,7 @@ namespace TrinityLMS.UI.MVC.Controllers
             }
             return View(course);
         }
-
+        [Authorize(Roles = "Admin,HR Administrator")]
         // GET: Courses/Create
         public ActionResult Create()
         {
@@ -57,7 +68,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
             return View(course);
         }
-
+        [Authorize(Roles = "Admin,HR Administrator")]
         // GET: Courses/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -72,7 +83,7 @@ namespace TrinityLMS.UI.MVC.Controllers
             }
             return View(course);
         }
-
+        [Authorize(Roles = "Admin,HR Administrator")]
         // POST: Courses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -88,7 +99,7 @@ namespace TrinityLMS.UI.MVC.Controllers
             }
             return View(course);
         }
-
+        [Authorize(Roles = "Admin,HR Administrator")]
         // GET: Courses/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -103,7 +114,7 @@ namespace TrinityLMS.UI.MVC.Controllers
             }
             return View(course);
         }
-
+        [Authorize(Roles = "Admin,HR Administrator")]
         // POST: Courses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

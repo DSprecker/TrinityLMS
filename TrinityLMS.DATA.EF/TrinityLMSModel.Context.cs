@@ -29,6 +29,7 @@ namespace TrinityLMS.DATA.EF
         public virtual DbSet<Course> Courses1 { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<LessonView> LessonViews { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<UserDetail> UserDetails { get; set; }
     }

@@ -29,6 +29,7 @@ namespace TrinityLMS.UI.MVC.Controllers
            
             return View();
         }  
+
         
         [HttpPost]
         public ActionResult Contact(ContactViewModel cvm)
@@ -38,7 +39,7 @@ namespace TrinityLMS.UI.MVC.Controllers
                 string body = $"{cvm.Name} has sent you the following message from TrinityLMS: <br />" +
                     $"{cvm.Message} <strong>from the email address:</strong> {cvm.Email}";
 
-                MailMessage m = new MailMessage("postmaster@devinsprecker.com", "DSprecker@outlook.com", cvm.Subject, body);
+                MailMessage m = new MailMessage("postmaster@devinsprecker.com", "spreckerd@gmail.com", cvm.Subject, body);
 
                 m.IsBodyHtml = true;
 

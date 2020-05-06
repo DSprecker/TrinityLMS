@@ -9,7 +9,7 @@
     <Property Name="CourseId" Type="Int32" Nullable="false" />
     <Property Name="DateCompleted" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="Cours" Relationship="Self.FK_CourseCompletions_Courses" FromRole="CourseCompletions" ToRole="Courses" />
-    <NavigationProperty Name="UserDetail" Relationship="TrinityLMSModel.FK_CourseCompletions_UserDetails" FromRole="CourseCompletions" ToRole="UserDetail" />
+    <NavigationProperty Name="UserDetail" Relationship="TrinityLMSModel.FK_CourseCompletions_UserDetails" FromRole="CourseCompletion" ToRole="UserDetail" />
   </EntityType>
   <EntityType Name="Course">
     <Key>
@@ -45,7 +45,7 @@
     <Property Name="LessonId" Type="Int32" Nullable="false" />
     <Property Name="DateViewed" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="Lesson" Relationship="Self.FK_LessonViews_Lessons" FromRole="LessonViews" ToRole="Lessons" />
-    <NavigationProperty Name="UserDetail" Relationship="TrinityLMSModel.FK_LessonViews_UserDetails" FromRole="LessonViews" ToRole="UserDetail" />
+    <NavigationProperty Name="UserDetail" Relationship="TrinityLMSModel.FK_LessonViews_UserDetails" FromRole="LessonView" ToRole="UserDetail" />
   </EntityType>
   <Association Name="FK_CourseCompletions_Courses">
     <End Role="Courses" Type="TrinityLMSModel.Course" Multiplicity="1" />
@@ -100,21 +100,34 @@
       <End Role="Lessons" EntitySet="Lessons" />
       <End Role="LessonViews" EntitySet="LessonViews" />
     </AssociationSet>
+    <EntitySet Name="AspNetRoles" EntityType="TrinityLMSModel.AspNetRole" />
     <EntitySet Name="AspNetUsers" EntityType="TrinityLMSModel.AspNetUser" />
     <EntitySet Name="UserDetails" EntityType="TrinityLMSModel.UserDetail" />
-    <AssociationSet Name="FK_AspNetUsers_UserDetails" Association="TrinityLMSModel.FK_AspNetUsers_UserDetails">
-      <End Role="UserDetail" EntitySet="UserDetails" />
+    <AssociationSet Name="FK_UserDetails_AspNetUsers" Association="TrinityLMSModel.FK_UserDetails_AspNetUsers">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_CourseCompletions_UserDetails" Association="TrinityLMSModel.FK_CourseCompletions_UserDetails">
       <End Role="UserDetail" EntitySet="UserDetails" />
-      <End Role="CourseCompletions" EntitySet="CourseCompletions" />
+      <End Role="CourseCompletion" EntitySet="CourseCompletions" />
     </AssociationSet>
     <AssociationSet Name="FK_LessonViews_UserDetails" Association="TrinityLMSModel.FK_LessonViews_UserDetails">
       <End Role="UserDetail" EntitySet="UserDetails" />
-      <End Role="LessonViews" EntitySet="LessonViews" />
+      <End Role="LessonView" EntitySet="LessonViews" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="TrinityLMSModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="TrinityLMSModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
   <EntityType Name="AspNetUser">
     <Key>
       <PropertyRef Name="Id" />
@@ -131,7 +144,8 @@
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
     <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="UserDetail" Relationship="TrinityLMSModel.FK_AspNetUsers_UserDetails" FromRole="AspNetUser" ToRole="UserDetail" />
+    <NavigationProperty Name="UserDetail" Relationship="TrinityLMSModel.FK_UserDetails_AspNetUsers" FromRole="AspNetUser" ToRole="UserDetail" />
+    <NavigationProperty Name="AspNetRoles" Relationship="TrinityLMSModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
   </EntityType>
   <EntityType Name="UserDetail">
     <Key>
@@ -141,44 +155,50 @@
     <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="AspNetUser" Relationship="TrinityLMSModel.FK_AspNetUsers_UserDetails" FromRole="UserDetail" ToRole="AspNetUser" />
-    <NavigationProperty Name="CourseCompletions" Relationship="TrinityLMSModel.FK_CourseCompletions_UserDetails" FromRole="UserDetail" ToRole="CourseCompletions" />
-    <NavigationProperty Name="LessonViews" Relationship="TrinityLMSModel.FK_LessonViews_UserDetails" FromRole="UserDetail" ToRole="LessonViews" />
+    <NavigationProperty Name="AspNetUser" Relationship="TrinityLMSModel.FK_UserDetails_AspNetUsers" FromRole="UserDetail" ToRole="AspNetUser" />
+    <NavigationProperty Name="CourseCompletions" Relationship="TrinityLMSModel.FK_CourseCompletions_UserDetails" FromRole="UserDetail" ToRole="CourseCompletion" />
+    <NavigationProperty Name="LessonViews" Relationship="TrinityLMSModel.FK_LessonViews_UserDetails" FromRole="UserDetail" ToRole="LessonView" />
   </EntityType>
-  <Association Name="FK_AspNetUsers_UserDetails">
-    <End Type="TrinityLMSModel.UserDetail" Role="UserDetail" Multiplicity="1" />
-    <End Type="TrinityLMSModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+  <Association Name="FK_UserDetails_AspNetUsers">
+    <End Type="TrinityLMSModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="TrinityLMSModel.UserDetail" Role="UserDetail" Multiplicity="0..1" />
     <ReferentialConstraint>
-      <Principal Role="UserDetail">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="AspNetUser">
+      <Principal Role="AspNetUser">
         <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CourseCompletions_UserDetails">
     <End Type="TrinityLMSModel.UserDetail" Role="UserDetail" Multiplicity="1" />
-    <End Type="TrinityLMSModel.CourseCompletion" Role="CourseCompletions" Multiplicity="*" />
+    <End Type="TrinityLMSModel.CourseCompletion" Role="CourseCompletion" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserDetail">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="CourseCompletions">
+      <Dependent Role="CourseCompletion">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_LessonViews_UserDetails">
     <End Type="TrinityLMSModel.UserDetail" Role="UserDetail" Multiplicity="1" />
-    <End Type="TrinityLMSModel.LessonView" Role="LessonViews" Multiplicity="*" />
+    <End Type="TrinityLMSModel.LessonView" Role="LessonView" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UserDetail">
         <PropertyRef Name="UserId" />
       </Principal>
-      <Dependent Role="LessonViews">
+      <Dependent Role="LessonView">
         <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="TrinityLMSModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="TrinityLMSModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
   </Association>
 </Schema>

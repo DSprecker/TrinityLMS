@@ -1,0 +1,52 @@
+﻿.contactbox {
+    border: solid;
+    border-color: #19C880;
+    margin: auto;
+}
+
+.brandlabel {
+    color: #19C880;
+}
+
+body {
+    background-color: black;
+}
+
+#homebox {
+    border: solid;
+    border-color: #19C880;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.entry-footer {
+    background-color: black;
+}
+
+#triqbullet {
+    list-style-image: url('../Content/images/triquetra3.png');
+    max-width: 5px;
+}
+
+.createnew {
+    color: #19c880;
+}
+
+.progbarstyle {
+    color: white;
+}
+
+.gotolesson {
+    color: #19c880;
+    
+}
+
+dt {
+    color: white;
+}
+
+dd {
+    color: #19c880;
+}

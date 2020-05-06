@@ -15,12 +15,10 @@ img {
 # Links
 --------------------------------------------------------------*/
 a {
-    color: #383749;
+    color: white;
 }
 
-a:visited {
-    color: #757686;
-}
+
 
 a:hover, a:focus, a:active {
     color: #383749;
@@ -60,7 +58,7 @@ a:hover, a:active {
 }
 
 .top-header-bar {
-    background: #fff;
+    background: rgb(81,107,117);
 }
 
 /*
@@ -69,6 +67,7 @@ a:hover, a:active {
 .header-bar-text,
 .header-bar-email {
     padding: 11px 26px;
+    border-right: 1px solid rgb(235, 235, 235);
 }
 
 .header-bar-text .fa,
@@ -80,6 +79,7 @@ a:hover, a:active {
 
 .header-bar-text p {
     margin: 0;
+    color: white;
 }
 
 /*
@@ -91,7 +91,7 @@ a:hover, a:active {
 }
 
 .header-bar-email a {
-    color: #383749;
+    color: white;
     text-decoration: none;
 }
 
@@ -155,7 +155,7 @@ a:hover, a:active {
     position: relative;
     display: block;
     padding: 0 6px;
-    color: #383749;
+    color: white;
 }
 
 .header-bar-menu li a::after {
@@ -182,13 +182,21 @@ a:hover, a:active {
 /*
 # Site Branding
 --------------------------------*/
+
+header h2 {
+    text-decoration: underline double #19C880;
+    color: white;
+}
+
 .site-title {
     padding: 6px 0;
-    margin: 0;
+    margin-left: 0;
     font-size: 36px;
     font-weight: 500;
     line-height: 1;
     text-align: left !important;
+    float: left;
+   
 }
 
 .site-title a {
@@ -330,8 +338,11 @@ a:hover, a:active {
 # Hero Section
 --------------------------------------------------------------*/
 .hero-content {
-    background: url("images/hero-bg.jpg") no-repeat center;
+    background: url("images/headerimg.jpg") no-repeat center;
     background-size: cover;
+    border-bottom: solid;
+    border-color: rgb(81,107,117);
+    border-spacing: 5em 5em;
 }
 
 .hero-content-overlay {
@@ -453,6 +464,7 @@ a:hover, a:active {
     margin: 12px 0;
     color: #757686;
     line-height: 1.6;
+    
 }
 
 .icon-box .read-more a {
@@ -466,15 +478,15 @@ a:hover, a:active {
     letter-spacing: 0.1em;
 }
 
-.icon-box .read-more a .fa {
-    position: absolute;
-    top: 2px;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    transition: all .35s;
-}
+    .icon-box .read-more a .fa {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000;
+        transition: all .35s;
+    }
 
 .icon-box:hover .read-more a .fa {
     left: 100%;
@@ -646,7 +658,7 @@ a.btn {
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #383749;
+    
     text-decoration: none;
 }
 
@@ -850,12 +862,16 @@ a.btn:hover {
 }
 
 .testimonial-slider .content-wrap {
-    background: #fff;
+    background: black;
 }
 
 .testimonial-slider .entry-content p {
     font-size: 26px;
-    color: #383749;
+    color: white;
+}
+
+.entry-content {
+    background-color: black;
 }
 
 .testimonial-slider .testimonial-user {
@@ -1168,7 +1184,8 @@ a.btn:hover {
     font-size: 48px;
     font-weight: 500;
     color: #fff;
-    text-align: center;
+   
+  
 }
 
 /*--------------------------------------------------------------
@@ -2612,10 +2629,10 @@ ul.author-social-profile li:hover .fa {
 }
 
 .foot-about p {
-    margin-top: 40px;
+    margin-top: 20px;
     font-size: 16px;
     line-height: 1.6;
-    color: #757686;
+    color: white;
 }
 
 p.footer-copyright {
@@ -2625,7 +2642,7 @@ p.footer-copyright {
 .footer-widgets h2 {
     margin-bottom: 40px;
     font-size: 20px;
-    color: #383749;
+    color: #19c880;
 }
 
 .footer-widgets ul {
@@ -2718,11 +2735,11 @@ footer
 {
     border-top: solid;
    border-color: rgb(81,107,117);
-
+   margin-top: auto;
 }
 
 .foot-branding h1 {
-    color: rgb(81,107,117);
+    color: white;
 }
 
     .foot-branding h1 span {

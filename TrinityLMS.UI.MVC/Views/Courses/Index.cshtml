@@ -4,12 +4,78 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@if (User.IsInRole("Employee"))
+{
+    int userCompletedCourseCount = 0;
+    int totalCourseCount = ViewBag.TotalCourseCount;
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+    if (ViewBag.UserCompletedCourseCount != null)
+    {
+        userCompletedCourseCount = ViewBag.UserCompletedCourseCount;
+    }
+
+
+    int userCompletedLessonCount = 0;
+    int totalLessonCount = 0;
+    if (ViewBag.UserCompletedLessonCount != null)
+    {
+        userCompletedLessonCount = ViewBag.UserCompletedLessonCount;
+    }
+    if (ViewBag.TotalLessonCount != null)
+    {
+        totalLessonCount = ViewBag.TotalLessonCount;
+    }
+
+    <p>
+        <em>
+
+            <span class="progbarstyle">
+                @string.Format($"You have completed {userCompletedCourseCount} / {totalCourseCount} total courses  (6 required yearly).")
+            </span>
+            @if (userCompletedCourseCount == 0)
+
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedCourseCount == 1)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+
+            <br />
+            <span class="progbarstyle">
+                @string.Format($"You have completed {userCompletedLessonCount} / {totalLessonCount} total lessons.")
+            </span>
+            @if (userCompletedLessonCount == 0)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedLessonCount == 1)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+        </em>
+    </p>
+}
+
+@if (User.IsInRole("HR Administrator") || User.IsInRole("Admin"))
+{
+    <p>
+        @if (User.IsInRole("HR Administrator") || (User.IsInRole("Admin")))
+        {
+            <a href="@Url.Action("Create","Courses")" class="btn btn-sucess createnew">+Create</a>
+        }
+    </p>
+}
+<table class="table table-dark table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CourseName)
@@ -17,29 +83,33 @@
         <th>
             @Html.DisplayNameFor(model => model.CourseDescription)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>*@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseDescription)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>*@
+            @if (User.IsInRole("HR Administrator") || User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                </td>
+            }
+        </tr>
+    }
 
 </table>

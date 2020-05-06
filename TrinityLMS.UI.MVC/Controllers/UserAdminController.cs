@@ -50,6 +50,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Users/
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Index()
         {
@@ -74,6 +75,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Users/Create
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Create()
         {
@@ -84,6 +86,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // POST: /Users/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
@@ -122,6 +125,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Users/Edit/1
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Edit(string id)
         {
@@ -152,6 +156,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // POST: /Users/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Email,Id")] EditUserViewModel editUser, params string[] selectedRole)
@@ -193,6 +198,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // GET: /Users/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> Delete(string id)
         {
@@ -210,6 +216,7 @@ namespace TrinityLMS.UI.MVC.Controllers
 
         //
         // POST: /Users/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]

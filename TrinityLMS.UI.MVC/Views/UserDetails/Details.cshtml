@@ -1,0 +1,141 @@
+﻿@model TrinityLMS.DATA.EF.UserDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+@if (User.IsInRole("Manager") || (User.IsInRole("Admin")))
+{
+    int userCompletedCourseCount = 0;
+    int totalCourseCount = 0;
+
+    if (ViewBag.UserCompletedCourseCount != null)
+    {
+        userCompletedCourseCount = ViewBag.UserCompletedCourseCount;
+    }
+
+    if (ViewBag.totalCourseCount != null)
+    {
+        totalCourseCount = ViewBag.TotalCourseCount;
+    }
+
+    int userCompletedLessonCount = 0;
+    int totalLessonCount = 0;
+    if (ViewBag.UserCompletedLessonCount != null)
+    {
+        userCompletedLessonCount = ViewBag.UserCompletedLessonCount;
+    }
+    if (ViewBag.TotalLessonCount != null)
+    {
+        totalLessonCount = ViewBag.TotalLessonCount;
+    }
+
+    
+		<p>
+        <em>
+            <span class="progbarstyle">
+                @string.Format($"{Html.DisplayFor(model => model.FirstName)} has completed {userCompletedCourseCount} / {totalCourseCount} total courses  (6 required yearly).")
+                    </span>
+            @if (userCompletedCourseCount == 0)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedCourseCount == 1)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="16.6" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            <br />
+            <span class="progbarstyle"> @string.Format($"{Html.DisplayFor(model => model.FirstName)} has completed {userCompletedLessonCount} / {totalLessonCount} total lessons.")
+                 </span>
+            @if (userCompletedLessonCount == 0)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedLessonCount == 1)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 10%" aria-valuenow="11" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedLessonCount == 2)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedLessonCount == 3)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="33.3" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedLessonCount == 4)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="44.4" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            @if (userCompletedLessonCount == 5)
+            {
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="55.5" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            }
+            <br />
+
+        </em>
+    </p> 
+	
+}
+
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Company)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Company)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
